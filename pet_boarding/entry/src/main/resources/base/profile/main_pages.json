@@ -9,6 +9,7 @@
     "pages/PetFormPage",
     "pages/OrderListPage",
     "pages/OrderFormPage",
-    "pages/CheckInPage"
+    "pages/CheckInPage",
+    "pages/CareRecordPage"
   ]
 }
