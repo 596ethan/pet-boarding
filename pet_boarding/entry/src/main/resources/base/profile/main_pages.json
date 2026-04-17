@@ -4,6 +4,8 @@
     "pages/LoginPage",
     "pages/HomePage",
     "pages/OwnerListPage",
-    "pages/OwnerFormPage"
+    "pages/OwnerFormPage",
+    "pages/PetListPage",
+    "pages/PetFormPage"
   ]
 }
