@@ -10,6 +10,8 @@
     "pages/OrderListPage",
     "pages/OrderFormPage",
     "pages/CheckInPage",
-    "pages/CareRecordPage"
+    "pages/CareRecordPage",
+    "pages/CheckoutPage",
+    "pages/HistoryPage"
   ]
 }
