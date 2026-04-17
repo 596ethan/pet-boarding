@@ -5,6 +5,7 @@ oh_modules/
 local.properties
 build/
 .test/
+.worktrees/
 
 # Common editor and OS noise
 .DS_Store
