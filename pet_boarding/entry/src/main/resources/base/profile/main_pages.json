@@ -6,6 +6,8 @@
     "pages/OwnerListPage",
     "pages/OwnerFormPage",
     "pages/PetListPage",
-    "pages/PetFormPage"
+    "pages/PetFormPage",
+    "pages/OrderListPage",
+    "pages/OrderFormPage"
   ]
 }
