@@ -1,0 +1,11 @@
+# HarmonyOS generated and local state
+.hvigor/
+oh_modules/
+.idea/
+local.properties
+build/
+.test/
+
+# Common editor and OS noise
+.DS_Store
+Thumbs.db
