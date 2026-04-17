@@ -90,6 +90,25 @@ struct CareRecordPage {
     this.loadRecords();
   }
 
+  private confirmDeleteRecord(record: CareRecord) {
+    AlertDialog.show({
+      title: '确认删除照护记录',
+      message: `删除 ${this.typeLabel(record.type)} 记录后不可恢复。`,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: '删除',
+        fontColor: '#D92D20',
+        action: () => {
+          this.deleteRecord(record.id);
+        }
+      }
+    });
+  }
+
   build() {
     Scroll() {
       Column({ space: 16 }) {
@@ -187,7 +206,7 @@ struct CareRecordPage {
                   .height(34)
                   .borderRadius(8)
                   .backgroundColor('#D92D20')
-                  .onClick(() => this.deleteRecord(record.id))
+                  .onClick(() => this.confirmDeleteRecord(record))
               }
             }
             .width('100%')

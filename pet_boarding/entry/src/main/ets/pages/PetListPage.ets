@@ -24,6 +24,25 @@ struct PetListPage {
     this.refresh();
   }
 
+  private confirmDeletePet(pet: Pet) {
+    AlertDialog.show({
+      title: '确认删除宠物',
+      message: `删除后将移除 ${pet.name} 的宠物档案。`,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: '删除',
+        fontColor: '#D92D20',
+        action: () => {
+          this.deletePet(pet.id);
+        }
+      }
+    });
+  }
+
   build() {
     Column({ space: 12 }) {
       Row() {
@@ -79,7 +98,7 @@ struct PetListPage {
                     .height(34)
                     .borderRadius(8)
                     .backgroundColor('#D92D20')
-                    .onClick(() => this.deletePet(pet.id))
+                    .onClick(() => this.confirmDeletePet(pet))
                 }
               }
               .width('100%')

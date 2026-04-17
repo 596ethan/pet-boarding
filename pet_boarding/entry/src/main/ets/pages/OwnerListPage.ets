@@ -24,6 +24,25 @@ struct OwnerListPage {
     this.refresh();
   }
 
+  private confirmDeleteOwner(owner: Owner) {
+    AlertDialog.show({
+      title: '确认删除主人',
+      message: `删除后将移除 ${owner.name} 的主人档案。`,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: '删除',
+        fontColor: '#D92D20',
+        action: () => {
+          this.deleteOwner(owner.id);
+        }
+      }
+    });
+  }
+
   build() {
     Column({ space: 12 }) {
       Row() {
@@ -70,7 +89,7 @@ struct OwnerListPage {
                     .height(34)
                     .borderRadius(8)
                     .backgroundColor('#D92D20')
-                    .onClick(() => this.deleteOwner(owner.id))
+                    .onClick(() => this.confirmDeleteOwner(owner))
                 }
               }
               .width('100%')

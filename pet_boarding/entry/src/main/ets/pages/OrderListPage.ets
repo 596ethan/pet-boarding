@@ -24,6 +24,25 @@ struct OrderListPage {
     this.refresh();
   }
 
+  private confirmDeleteOrder(order: BoardingOrder) {
+    AlertDialog.show({
+      title: '确认删除订单',
+      message: `删除订单 ${order.id} 后，该订单的照护记录也会移除。`,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: '删除',
+        fontColor: '#D92D20',
+        action: () => {
+          this.deleteOrder(order.id);
+        }
+      }
+    });
+  }
+
   build() {
     Column({ space: 12 }) {
       Row() {
@@ -79,7 +98,7 @@ struct OrderListPage {
                     .height(34)
                     .borderRadius(8)
                     .backgroundColor('#D92D20')
-                    .onClick(() => this.deleteOrder(order.id))
+                    .onClick(() => this.confirmDeleteOrder(order))
                 }
               }
               .width('100%')
