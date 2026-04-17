@@ -2,6 +2,8 @@
   "src": [
     "pages/Index",
     "pages/LoginPage",
-    "pages/HomePage"
+    "pages/HomePage",
+    "pages/OwnerListPage",
+    "pages/OwnerFormPage"
   ]
 }
