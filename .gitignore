@@ -6,6 +6,7 @@ local.properties
 build/
 .test/
 .worktrees/
+target/
 
 # Common editor and OS noise
 .DS_Store

@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: pet-boarding-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: petboarding_root
+      MYSQL_DATABASE: pet_boarding
+      MYSQL_USER: petboarding
+      MYSQL_PASSWORD: petboarding
+    ports:
+      - "3306:3306"
+    volumes:
+      - pet_boarding_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ppetboarding_root"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pet_boarding_mysql_data:

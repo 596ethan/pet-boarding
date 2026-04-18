@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pet-boarding-server
+  datasource:
+    url: jdbc:mysql://localhost:3306/pet_boarding?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: petboarding
+    password: petboarding
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+pet-boarding:
+  auth:
+    demo-token: demo-token-admin
