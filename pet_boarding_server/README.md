@@ -28,6 +28,23 @@ The default database config is:
 - password: `petboarding`
 - JDBC URL: `jdbc:mysql://localhost:13306/pet_boarding`
 
+These defaults can be overridden before starting Docker or Spring Boot:
+
+```powershell
+$env:PET_BOARDING_MYSQL_PORT='13307'
+$env:PET_BOARDING_MYSQL_DATABASE='pet_boarding'
+$env:PET_BOARDING_DATASOURCE_USERNAME='petboarding'
+$env:PET_BOARDING_DATASOURCE_PASSWORD='petboarding'
+```
+
+Spring Boot builds the JDBC URL from `PET_BOARDING_MYSQL_HOST`,
+`PET_BOARDING_MYSQL_PORT`, and `PET_BOARDING_MYSQL_DATABASE`. To override the
+whole URL directly, set:
+
+```powershell
+$env:PET_BOARDING_DATASOURCE_URL='jdbc:mysql://localhost:13307/pet_boarding?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai'
+```
+
 Flyway creates these MVP tables:
 
 - `app_user`
