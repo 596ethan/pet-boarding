@@ -65,62 +65,97 @@ struct OrderFormPage {
 
   build() {
     Scroll() {
-      Column({ space: 14 }) {
-        Text(this.orderId.length > 0 ? '编辑订单' : '新增订单')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#101828')
-          .width('100%')
-
-        Text('选择主人')
-          .fontSize(14)
-          .fontColor('#667085')
-          .width('100%')
-        Row({ space: 8 }) {
-          ForEach(this.owners, (owner: Owner) => {
-            Button(owner.name)
-              .height(36)
-              .borderRadius(8)
-              .backgroundColor(this.ownerId === owner.id ? '#2563EB' : '#EAECF0')
-              .fontColor(this.ownerId === owner.id ? Color.White : '#344054')
-              .onClick(() => this.selectOwner(owner.id))
-          }, (owner: Owner) => owner.id)
+      Column({ space: 16 }) {
+        Column({ space: 4 }) {
+          Text(this.orderId.length > 0 ? '编辑订单' : '新增订单')
+            .fontSize(26)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101828')
+          Text('先选择主人和宠物，再进入入住分配。')
+            .fontSize(13)
+            .fontColor('#667085')
         }
         .width('100%')
+        .alignItems(HorizontalAlign.Start)
 
-        Text('选择宠物')
-          .fontSize(14)
-          .fontColor('#667085')
-          .width('100%')
-        if (this.petsForOwner().length === 0) {
-          Text('当前主人暂无宠物，请先建立宠物档案')
-            .fontSize(13)
-            .fontColor('#B42318')
+        Column({ space: 12 }) {
+          Text('选择主人')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#101828')
             .width('100%')
-        } else {
           Row({ space: 8 }) {
-            ForEach(this.petsForOwner(), (pet: Pet) => {
-              Button(pet.name)
+            ForEach(this.owners, (owner: Owner) => {
+              Button(owner.name)
                 .height(36)
                 .borderRadius(8)
-                .backgroundColor(this.petId === pet.id ? '#2563EB' : '#EAECF0')
-                .fontColor(this.petId === pet.id ? Color.White : '#344054')
-                .onClick(() => this.petId = pet.id)
-            }, (pet: Pet) => pet.id)
+                .backgroundColor(this.ownerId === owner.id ? '#0E7C66' : '#EAECF0')
+                .fontColor(this.ownerId === owner.id ? Color.White : '#344054')
+                .onClick(() => this.selectOwner(owner.id))
+            }, (owner: Owner) => owner.id)
           }
           .width('100%')
         }
+        .width('100%')
+        .padding(14)
+        .backgroundColor(Color.White)
+        .borderRadius(8)
+        .border({ width: 1, color: '#E4E7EC' })
 
-        TextInput({ placeholder: '订单备注', text: this.remark })
-          .height(48)
-          .backgroundColor(Color.White)
-          .borderRadius(8)
-          .onChange((value: string) => this.remark = value)
+        Column({ space: 12 }) {
+          Text('选择宠物')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#101828')
+            .width('100%')
+          if (this.petsForOwner().length === 0) {
+            Text('当前主人暂无宠物，请先建立宠物档案。')
+              .fontSize(13)
+              .fontColor('#B42318')
+              .width('100%')
+          } else {
+            Row({ space: 8 }) {
+              ForEach(this.petsForOwner(), (pet: Pet) => {
+                Button(pet.name)
+                  .height(36)
+                  .borderRadius(8)
+                  .backgroundColor(this.petId === pet.id ? '#2F6FED' : '#EAECF0')
+                  .fontColor(this.petId === pet.id ? Color.White : '#344054')
+                  .onClick(() => this.petId = pet.id)
+              }, (pet: Pet) => pet.id)
+            }
+            .width('100%')
+          }
+        }
+        .width('100%')
+        .padding(14)
+        .backgroundColor(Color.White)
+        .borderRadius(8)
+        .border({ width: 1, color: '#E4E7EC' })
+
+        Column({ space: 12 }) {
+          Text('订单备注')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#101828')
+            .width('100%')
+          TextInput({ placeholder: '寄养天数、注意事项或接送约定', text: this.remark })
+            .height(48)
+            .backgroundColor('#F9FAFB')
+            .borderRadius(8)
+            .onChange((value: string) => this.remark = value)
+        }
+        .width('100%')
+        .padding(14)
+        .backgroundColor(Color.White)
+        .borderRadius(8)
+        .border({ width: 1, color: '#E4E7EC' })
 
         Button('保存')
           .width('100%')
           .height(48)
           .borderRadius(8)
+          .backgroundColor('#0E7C66')
           .onClick(() => this.save())
         Button('返回')
           .width('100%')
@@ -133,6 +168,6 @@ struct OrderFormPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

@@ -44,39 +44,60 @@ struct OwnerListPage {
   }
 
   build() {
-    Column({ space: 12 }) {
+    Column({ space: 14 }) {
       Row() {
-        Text('主人管理')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#101828')
-        Blank()
-        Button('新增')
+        Column({ space: 4 }) {
+          Text('主人管理')
+            .fontSize(26)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101828')
+          Text('维护联系人，作为宠物和订单的入口。')
+            .fontSize(13)
+            .fontColor('#667085')
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+        Button('新增主人')
+          .height(40)
           .borderRadius(8)
+          .backgroundColor('#0E7C66')
           .onClick(() => router.pushUrl({ url: 'pages/OwnerFormPage' }))
       }
       .width('100%')
 
       Search({ placeholder: '搜索姓名或手机号', value: this.keyword })
+        .height(42)
         .onChange((value: string) => {
           this.keyword = value;
           this.refresh();
         })
 
       if (this.owners.length === 0) {
-        EmptyState({ title: '暂无主人', description: '点击新增建立主人档案' })
+        EmptyState({ title: '暂无主人', description: '点击新增主人，建立第一份主人档案。' })
       } else {
         List({ space: 10 }) {
           ForEach(this.owners, (owner: Owner) => {
             ListItem() {
-              Column({ space: 8 }) {
-                Text(owner.name)
-                  .fontSize(18)
-                  .fontWeight(FontWeight.Medium)
-                  .fontColor('#101828')
-                Text(owner.phone)
-                  .fontSize(14)
-                  .fontColor('#667085')
+              Column({ space: 10 }) {
+                Row() {
+                  Column({ space: 4 }) {
+                    Text(owner.name)
+                      .fontSize(18)
+                      .fontWeight(FontWeight.Medium)
+                      .fontColor('#101828')
+                    Text(owner.phone)
+                      .fontSize(14)
+                      .fontColor('#667085')
+                  }
+                  .layoutWeight(1)
+                  .alignItems(HorizontalAlign.Start)
+                  Text('主人')
+                    .fontSize(12)
+                    .fontColor('#0E7C66')
+                    .padding({ left: 8, right: 8, top: 4, bottom: 4 })
+                    .backgroundColor('#E7F6F1')
+                    .borderRadius(8)
+                }
                 Text(owner.remark)
                   .fontSize(13)
                   .fontColor('#667085')
@@ -96,6 +117,7 @@ struct OwnerListPage {
               .padding(14)
               .backgroundColor(Color.White)
               .borderRadius(8)
+              .border({ width: 1, color: '#E4E7EC' })
             }
           }, (owner: Owner) => owner.id)
         }
@@ -105,6 +127,6 @@ struct OwnerListPage {
     .width('100%')
     .height('100%')
     .padding(16)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

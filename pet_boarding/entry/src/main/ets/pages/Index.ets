@@ -8,20 +8,19 @@ struct Index {
   }
 
   build() {
-    Column() {
+    Column({ space: 8 }) {
       Text('宠物寄养管理')
-        .fontSize(22)
+        .fontSize(24)
         .fontWeight(FontWeight.Bold)
         .fontColor('#101828')
-      Text('正在进入...')
+      Text('正在进入前台工作台')
         .fontSize(14)
         .fontColor('#667085')
-        .margin({ top: 8 })
     }
     .width('100%')
     .height('100%')
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

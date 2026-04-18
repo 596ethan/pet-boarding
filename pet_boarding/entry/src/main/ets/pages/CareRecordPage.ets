@@ -112,66 +112,83 @@ struct CareRecordPage {
   build() {
     Scroll() {
       Column({ space: 16 }) {
-        Text('照护记录')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#101828')
-          .width('100%')
-
-        Text('选择寄养中订单')
-          .fontSize(16)
-          .fontWeight(FontWeight.Medium)
-          .fontColor('#101828')
-          .width('100%')
-        if (this.checkedInOrders.length === 0) {
-          EmptyState({ title: '暂无寄养中订单', description: '入住后才能新增照护记录' })
-        } else {
-          ForEach(this.checkedInOrders, (order: BoardingOrder) => {
-            Column({ space: 4 }) {
-              Text(`${petBoardingRepository.ownerName(order.ownerId)} / ${petBoardingRepository.petName(order.petId)}`)
-                .fontSize(16)
-                .fontWeight(FontWeight.Medium)
-                .fontColor('#101828')
-              Text(`房间：${petBoardingRepository.roomNo(order.roomId)}`)
-                .fontSize(13)
-                .fontColor('#667085')
-            }
-            .width('100%')
-            .padding(12)
-            .backgroundColor(this.selectedOrderId === order.id ? '#E0EAFF' : Color.White)
-            .borderRadius(8)
-            .border({ width: this.selectedOrderId === order.id ? 1 : 0, color: '#2563EB' })
-            .onClick(() => this.selectOrder(order.id))
-          }, (order: BoardingOrder) => order.id)
+        Column({ space: 4 }) {
+          Text('照护记录')
+            .fontSize(26)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101828')
+          Text('记录寄养期间的喂食、清洁、用药和异常情况。')
+            .fontSize(13)
+            .fontColor('#667085')
         }
+        .width('100%')
+        .alignItems(HorizontalAlign.Start)
 
-        Text(this.editingRecordId.length > 0 ? '编辑记录' : '新增记录')
-          .fontSize(16)
-          .fontWeight(FontWeight.Medium)
-          .fontColor('#101828')
-          .width('100%')
-        Row({ space: 8 }) {
-          ForEach(this.careTypes, (item: CareTypeOption) => {
-            Button(item.label)
-              .height(36)
+        Column({ space: 12 }) {
+          Text('寄养中订单')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#101828')
+            .width('100%')
+          if (this.checkedInOrders.length === 0) {
+            EmptyState({ title: '暂无寄养中订单', description: '入住后才能新增照护记录。' })
+          } else {
+            ForEach(this.checkedInOrders, (order: BoardingOrder) => {
+              Column({ space: 4 }) {
+                Text(`${petBoardingRepository.ownerName(order.ownerId)} / ${petBoardingRepository.petName(order.petId)}`)
+                  .fontSize(16)
+                  .fontWeight(FontWeight.Medium)
+                  .fontColor('#101828')
+                Text(`房间：${petBoardingRepository.roomNo(order.roomId)}`)
+                  .fontSize(13)
+                  .fontColor('#667085')
+              }
+              .width('100%')
+              .padding(12)
+              .backgroundColor(this.selectedOrderId === order.id ? '#E7F6F1' : Color.White)
               .borderRadius(8)
-              .backgroundColor(this.recordType === item.type ? '#2563EB' : '#EAECF0')
-              .fontColor(this.recordType === item.type ? Color.White : '#344054')
-              .onClick(() => this.recordType = item.type)
-          }, (item: CareTypeOption) => item.type)
+              .border({ width: 1, color: this.selectedOrderId === order.id ? '#0E7C66' : '#E4E7EC' })
+              .onClick(() => this.selectOrder(order.id))
+            }, (order: BoardingOrder) => order.id)
+          }
         }
         .width('100%')
 
-        TextInput({ placeholder: '照护内容', text: this.content })
-          .height(48)
-          .backgroundColor(Color.White)
-          .borderRadius(8)
-          .onChange((value: string) => this.content = value)
-        Button(this.editingRecordId.length > 0 ? '保存修改' : '新增记录')
+        Column({ space: 12 }) {
+          Text(this.editingRecordId.length > 0 ? '编辑记录' : '新增记录')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+            .fontColor('#101828')
+            .width('100%')
+          Row({ space: 8 }) {
+            ForEach(this.careTypes, (item: CareTypeOption) => {
+              Button(item.label)
+                .height(36)
+                .borderRadius(8)
+                .backgroundColor(this.recordType === item.type ? '#2F6FED' : '#EAECF0')
+                .fontColor(this.recordType === item.type ? Color.White : '#344054')
+                .onClick(() => this.recordType = item.type)
+            }, (item: CareTypeOption) => item.type)
+          }
           .width('100%')
-          .height(48)
-          .borderRadius(8)
-          .onClick(() => this.saveRecord())
+
+          TextInput({ placeholder: '照护内容', text: this.content })
+            .height(48)
+            .backgroundColor('#F9FAFB')
+            .borderRadius(8)
+            .onChange((value: string) => this.content = value)
+          Button(this.editingRecordId.length > 0 ? '保存修改' : '新增记录')
+            .width('100%')
+            .height(48)
+            .borderRadius(8)
+            .backgroundColor('#0E7C66')
+            .onClick(() => this.saveRecord())
+        }
+        .width('100%')
+        .padding(14)
+        .backgroundColor(Color.White)
+        .borderRadius(8)
+        .border({ width: 1, color: '#E4E7EC' })
 
         Text('记录列表')
           .fontSize(16)
@@ -179,7 +196,7 @@ struct CareRecordPage {
           .fontColor('#101828')
           .width('100%')
         if (this.records.length === 0) {
-          EmptyState({ title: '暂无照护记录', description: '填写内容后新增第一条记录' })
+          EmptyState({ title: '暂无照护记录', description: '填写内容后新增第一条记录。' })
         } else {
           ForEach(this.records, (record: CareRecord) => {
             Column({ space: 8 }) {
@@ -213,6 +230,7 @@ struct CareRecordPage {
             .padding(14)
             .backgroundColor(Color.White)
             .borderRadius(8)
+            .border({ width: 1, color: '#E4E7EC' })
           }, (record: CareRecord) => record.id)
         }
       }
@@ -220,6 +238,6 @@ struct CareRecordPage {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

@@ -22,21 +22,45 @@ struct CheckoutPage {
     this.refresh();
   }
 
+  private confirmCheckout(order: BoardingOrder) {
+    AlertDialog.show({
+      title: '确认退房',
+      message: `${petBoardingRepository.petName(order.petId)} 退房后，订单将进入已完成历史，房间会恢复空闲。`,
+      primaryButton: {
+        value: '取消',
+        action: () => {
+        }
+      },
+      secondaryButton: {
+        value: '确认退房',
+        action: () => {
+          this.checkout(order.id);
+        }
+      }
+    });
+  }
+
   build() {
-    Column({ space: 12 }) {
-      Text('退房办理')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#101828')
-        .width('100%')
+    Column({ space: 14 }) {
+      Column({ space: 4 }) {
+        Text('退房办理')
+          .fontSize(26)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#101828')
+        Text('完成寄养订单，并释放对应房间。')
+          .fontSize(13)
+          .fontColor('#667085')
+      }
+      .width('100%')
+      .alignItems(HorizontalAlign.Start)
 
       if (this.checkedInOrders.length === 0) {
-        EmptyState({ title: '暂无寄养中订单', description: '当前没有可退房的订单' })
+        EmptyState({ title: '暂无寄养中订单', description: '当前没有可退房的订单。' })
       } else {
         List({ space: 10 }) {
           ForEach(this.checkedInOrders, (order: BoardingOrder) => {
             ListItem() {
-              Column({ space: 8 }) {
+              Column({ space: 10 }) {
                 Text(`${petBoardingRepository.ownerName(order.ownerId)} / ${petBoardingRepository.petName(order.petId)}`)
                   .fontSize(18)
                   .fontWeight(FontWeight.Medium)
@@ -54,12 +78,14 @@ struct CheckoutPage {
                   .width('100%')
                   .height(42)
                   .borderRadius(8)
-                  .onClick(() => this.checkout(order.id))
+                  .backgroundColor('#0E7C66')
+                  .onClick(() => this.confirmCheckout(order))
               }
               .width('100%')
               .padding(14)
               .backgroundColor(Color.White)
               .borderRadius(8)
+              .border({ width: 1, color: '#E4E7EC' })
             }
           }, (order: BoardingOrder) => order.id)
         }
@@ -69,6 +95,6 @@ struct CheckoutPage {
     .width('100%')
     .height('100%')
     .padding(16)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

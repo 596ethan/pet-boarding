@@ -293,7 +293,10 @@ export class PetBoardingRepository {
   }
 
   private today(): string {
-    return '2026-04-17';
+    const date: Date = new Date();
+    const month: string = `${date.getMonth() + 1}`.padStart(2, '0');
+    const day: string = `${date.getDate()}`.padStart(2, '0');
+    return `${date.getFullYear()}-${month}-${day}`;
   }
 
   private nowText(): string {
