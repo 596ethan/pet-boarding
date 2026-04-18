@@ -1,0 +1,17 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/LoginPage",
+    "pages/HomePage",
+    "pages/OwnerListPage",
+    "pages/OwnerFormPage",
+    "pages/PetListPage",
+    "pages/PetFormPage",
+    "pages/OrderListPage",
+    "pages/OrderFormPage",
+    "pages/CheckInPage",
+    "pages/CareRecordPage",
+    "pages/CheckoutPage",
+    "pages/HistoryPage"
+  ]
+}
