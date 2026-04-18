@@ -26,7 +26,7 @@ The default database config is:
 - database: `pet_boarding`
 - username: `petboarding`
 - password: `petboarding`
-- JDBC URL: `jdbc:mysql://localhost:3306/pet_boarding`
+- JDBC URL: `jdbc:mysql://localhost:13306/pet_boarding`
 
 Flyway creates these MVP tables:
 

@@ -5,7 +5,7 @@ spring:
   application:
     name: pet-boarding-server
   datasource:
-    url: jdbc:mysql://localhost:3306/pet_boarding?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:13306/pet_boarding?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: petboarding
     password: petboarding
   flyway:
