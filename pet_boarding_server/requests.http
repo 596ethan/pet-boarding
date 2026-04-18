@@ -1,0 +1,61 @@
+@baseUrl = http://localhost:8080
+@token = demo-token-admin
+
+### Health
+GET {{baseUrl}}/api/health
+
+### Login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+### List owners
+GET {{baseUrl}}/api/owners
+Authorization: Bearer {{token}}
+
+### List pets
+GET {{baseUrl}}/api/pets
+Authorization: Bearer {{token}}
+
+### List pending orders
+GET {{baseUrl}}/api/orders?status=PENDING
+Authorization: Bearer {{token}}
+
+### Check in seeded pending order 2 with available room 2
+POST {{baseUrl}}/api/orders/2/check-in
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "roomId": 2
+}
+
+### Add care record for order 2
+POST {{baseUrl}}/api/care-records
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "orderId": 2,
+  "type": "FEEDING",
+  "content": "Dinner completed. Water is normal."
+}
+
+### Checkout order 2
+POST {{baseUrl}}/api/orders/2/checkout
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+### Completed history
+GET {{baseUrl}}/api/orders?status=COMPLETED
+Authorization: Bearer {{token}}
+
+### Dashboard metrics
+GET {{baseUrl}}/api/dashboard/metrics
+Authorization: Bearer {{token}}

@@ -44,45 +44,60 @@ struct PetListPage {
   }
 
   build() {
-    Column({ space: 12 }) {
+    Column({ space: 14 }) {
       Row() {
-        Text('宠物管理')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#101828')
-        Blank()
-        Button('新增')
+        Column({ space: 4 }) {
+          Text('宠物管理')
+            .fontSize(26)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101828')
+          Text('维护宠物资料，便于快速创建寄养订单。')
+            .fontSize(13)
+            .fontColor('#667085')
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+        Button('新增宠物')
+          .height(40)
           .borderRadius(8)
+          .backgroundColor('#0E7C66')
           .onClick(() => router.pushUrl({ url: 'pages/PetFormPage' }))
       }
       .width('100%')
 
       Search({ placeholder: '搜索宠物名、类型或品种', value: this.keyword })
+        .height(42)
         .onChange((value: string) => {
           this.keyword = value;
           this.refresh();
         })
 
       if (this.pets.length === 0) {
-        EmptyState({ title: '暂无宠物', description: '点击新增建立宠物档案' })
+        EmptyState({ title: '暂无宠物', description: '点击新增宠物，建立第一份宠物档案。' })
       } else {
         List({ space: 10 }) {
           ForEach(this.pets, (pet: Pet) => {
             ListItem() {
-              Column({ space: 8 }) {
+              Column({ space: 10 }) {
                 Row() {
-                  Text(pet.name)
-                    .fontSize(18)
-                    .fontWeight(FontWeight.Medium)
-                    .fontColor('#101828')
-                  Blank()
+                  Column({ space: 4 }) {
+                    Text(pet.name)
+                      .fontSize(18)
+                      .fontWeight(FontWeight.Medium)
+                      .fontColor('#101828')
+                    Text(`主人：${petBoardingRepository.ownerName(pet.ownerId)}`)
+                      .fontSize(14)
+                      .fontColor('#667085')
+                  }
+                  .layoutWeight(1)
+                  .alignItems(HorizontalAlign.Start)
                   Text(pet.type)
-                    .fontSize(13)
-                    .fontColor('#344054')
+                    .fontSize(12)
+                    .fontColor('#2F6FED')
+                    .padding({ left: 8, right: 8, top: 4, bottom: 4 })
+                    .backgroundColor('#E8F0FE')
+                    .borderRadius(8)
                 }
-                Text(`主人：${petBoardingRepository.ownerName(pet.ownerId)}`)
-                  .fontSize(14)
-                  .fontColor('#667085')
                 Text(`${pet.breed} / ${pet.age}岁 / ${pet.weight}kg`)
                   .fontSize(14)
                   .fontColor('#667085')
@@ -105,6 +120,7 @@ struct PetListPage {
               .padding(14)
               .backgroundColor(Color.White)
               .borderRadius(8)
+              .border({ width: 1, color: '#E4E7EC' })
             }
           }, (pet: Pet) => pet.id)
         }
@@ -114,6 +130,6 @@ struct PetListPage {
     .width('100%')
     .height('100%')
     .padding(16)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

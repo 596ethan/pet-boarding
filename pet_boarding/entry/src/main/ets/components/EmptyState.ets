@@ -12,9 +12,13 @@ export struct EmptyState {
       Text(this.description)
         .fontSize(13)
         .fontColor('#667085')
+        .textAlign(TextAlign.Center)
     }
     .width('100%')
     .padding(24)
     .alignItems(HorizontalAlign.Center)
+    .backgroundColor(Color.White)
+    .borderRadius(8)
+    .border({ width: 1, color: '#E4E7EC' })
   }
 }

@@ -17,24 +17,39 @@ struct HistoryPage {
   }
 
   build() {
-    Column({ space: 12 }) {
-      Text('历史订单')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#101828')
-        .width('100%')
+    Column({ space: 14 }) {
+      Column({ space: 4 }) {
+        Text('历史订单')
+          .fontSize(26)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#101828')
+        Text('沉淀已完成的寄养记录，便于演示完整闭环。')
+          .fontSize(13)
+          .fontColor('#667085')
+      }
+      .width('100%')
+      .alignItems(HorizontalAlign.Start)
 
       if (this.completedOrders.length === 0) {
-        EmptyState({ title: '暂无历史订单', description: '退房完成后会出现在这里' })
+        EmptyState({ title: '暂无历史订单', description: '退房完成后会出现在这里。' })
       } else {
         List({ space: 10 }) {
           ForEach(this.completedOrders, (order: BoardingOrder) => {
             ListItem() {
               Column({ space: 8 }) {
-                Text(`${petBoardingRepository.ownerName(order.ownerId)} / ${petBoardingRepository.petName(order.petId)}`)
-                  .fontSize(18)
-                  .fontWeight(FontWeight.Medium)
-                  .fontColor('#101828')
+                Row() {
+                  Text(`${petBoardingRepository.ownerName(order.ownerId)} / ${petBoardingRepository.petName(order.petId)}`)
+                    .fontSize(18)
+                    .fontWeight(FontWeight.Medium)
+                    .fontColor('#101828')
+                  Blank()
+                  Text('已完成')
+                    .fontSize(12)
+                    .fontColor('#027A48')
+                    .padding({ left: 8, right: 8, top: 4, bottom: 4 })
+                    .backgroundColor('#D1FADF')
+                    .borderRadius(8)
+                }
                 Text(`房间：${petBoardingRepository.roomNo(order.roomId)}`)
                   .fontSize(14)
                   .fontColor('#667085')
@@ -55,6 +70,7 @@ struct HistoryPage {
               .padding(14)
               .backgroundColor(Color.White)
               .borderRadius(8)
+              .border({ width: 1, color: '#E4E7EC' })
             }
           }, (order: BoardingOrder) => order.id)
         }
@@ -64,6 +80,6 @@ struct HistoryPage {
     .width('100%')
     .height('100%')
     .padding(16)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

@@ -18,44 +18,59 @@ struct LoginPage {
   }
 
   build() {
-    Column({ space: 18 }) {
-      Text('宠物寄养管理系统')
-        .fontSize(26)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#101828')
-      Text('门店前台演示端')
-        .fontSize(15)
-        .fontColor('#667085')
-      TextInput({ placeholder: '账号', text: this.username })
-        .height(48)
-        .backgroundColor(Color.White)
-        .borderRadius(8)
-        .onChange((value: string) => {
-          this.username = value;
-        })
-      TextInput({ placeholder: '密码', text: this.password })
-        .height(48)
-        .type(InputType.Password)
-        .backgroundColor(Color.White)
-        .borderRadius(8)
-        .onChange((value: string) => {
-          this.password = value;
-        })
-      Button('登录')
-        .width('100%')
-        .height(48)
-        .borderRadius(8)
-        .onClick(() => {
-          this.submitLogin();
-        })
-      Text(`演示账号：${DEMO_USERNAME} / ${DEMO_PASSWORD}`)
-        .fontSize(13)
-        .fontColor('#667085')
+    Column({ space: 22 }) {
+      Column({ space: 8 }) {
+        Text('宠物寄养管理系统')
+          .fontSize(28)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#101828')
+        Text('门店前台工作台')
+          .fontSize(15)
+          .fontColor('#667085')
+      }
+      .width('100%')
+      .alignItems(HorizontalAlign.Start)
+
+      Column({ space: 14 }) {
+        TextInput({ placeholder: '账号', text: this.username })
+          .height(48)
+          .backgroundColor('#F9FAFB')
+          .borderRadius(8)
+          .onChange((value: string) => {
+            this.username = value;
+          })
+        TextInput({ placeholder: '密码', text: this.password })
+          .height(48)
+          .type(InputType.Password)
+          .backgroundColor('#F9FAFB')
+          .borderRadius(8)
+          .onChange((value: string) => {
+            this.password = value;
+          })
+        Button('登录')
+          .width('100%')
+          .height(48)
+          .borderRadius(8)
+          .backgroundColor('#0E7C66')
+          .onClick(() => {
+            this.submitLogin();
+          })
+        Text(`演示账号：${DEMO_USERNAME} / ${DEMO_PASSWORD}`)
+          .fontSize(13)
+          .fontColor('#667085')
+          .width('100%')
+      }
+      .width('100%')
+      .padding(18)
+      .backgroundColor(Color.White)
+      .borderRadius(8)
+      .border({ width: 1, color: '#E4E7EC' })
+      .shadow({ radius: 12, color: '#14000000', offsetX: 0, offsetY: 3 })
     }
     .width('100%')
     .height('100%')
     .padding(24)
     .justifyContent(FlexAlign.Center)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }

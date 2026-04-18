@@ -8,6 +8,7 @@ import { petBoardingRepository } from '../repository/PetBoardingRepository';
 @Entry
 @Component
 struct OrderListPage {
+  @State keyword: string = '';
   @State orders: BoardingOrder[] = petBoardingRepository.listOrders();
 
   aboutToAppear() {
@@ -16,6 +17,18 @@ struct OrderListPage {
 
   private refresh() {
     this.orders = petBoardingRepository.listOrders();
+  }
+
+  private visibleOrders(): BoardingOrder[] {
+    const text: string = this.keyword.trim();
+    if (text.length === 0) {
+      return this.orders;
+    }
+    return this.orders.filter((order: BoardingOrder) => {
+      return order.id.includes(text) ||
+        petBoardingRepository.ownerName(order.ownerId).includes(text) ||
+        petBoardingRepository.petName(order.petId).includes(text);
+    });
   }
 
   private deleteOrder(orderId: string) {
@@ -44,26 +57,40 @@ struct OrderListPage {
   }
 
   build() {
-    Column({ space: 12 }) {
+    Column({ space: 14 }) {
       Row() {
-        Text('订单管理')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .fontColor('#101828')
-        Blank()
-        Button('新增')
+        Column({ space: 4 }) {
+          Text('订单管理')
+            .fontSize(26)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#101828')
+          Text('创建待入住订单，并查看状态流转。')
+            .fontSize(13)
+            .fontColor('#667085')
+        }
+        .layoutWeight(1)
+        .alignItems(HorizontalAlign.Start)
+        Button('新增订单')
+          .height(40)
           .borderRadius(8)
+          .backgroundColor('#0E7C66')
           .onClick(() => router.pushUrl({ url: 'pages/OrderFormPage' }))
       }
       .width('100%')
 
-      if (this.orders.length === 0) {
-        EmptyState({ title: '暂无订单', description: '点击新增创建待入住订单' })
+      Search({ placeholder: '搜索订单、主人或宠物', value: this.keyword })
+        .height(42)
+        .onChange((value: string) => {
+          this.keyword = value;
+        })
+
+      if (this.visibleOrders().length === 0) {
+        EmptyState({ title: '暂无订单', description: '点击新增订单，创建待入住寄养订单。' })
       } else {
         List({ space: 10 }) {
-          ForEach(this.orders, (order: BoardingOrder) => {
+          ForEach(this.visibleOrders(), (order: BoardingOrder) => {
             ListItem() {
-              Column({ space: 8 }) {
+              Column({ space: 10 }) {
                 Row() {
                   Text(`订单 ${order.id}`)
                     .fontSize(17)
@@ -86,6 +113,11 @@ struct OrderListPage {
                     .fontSize(13)
                     .fontColor('#667085')
                 }
+                if (order.checkoutTime.length > 0) {
+                  Text(`退房：${order.checkoutTime}`)
+                    .fontSize(13)
+                    .fontColor('#667085')
+                }
                 Text(order.remark)
                   .fontSize(13)
                   .fontColor('#667085')
@@ -105,6 +137,7 @@ struct OrderListPage {
               .padding(14)
               .backgroundColor(Color.White)
               .borderRadius(8)
+              .border({ width: 1, color: '#E4E7EC' })
             }
           }, (order: BoardingOrder) => order.id)
         }
@@ -114,6 +147,6 @@ struct OrderListPage {
     .width('100%')
     .height('100%')
     .padding(16)
-    .backgroundColor('#F5F7FA')
+    .backgroundColor('#F6F8FB')
   }
 }
